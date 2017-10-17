@@ -8,58 +8,102 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Esquema;
-import model.Tabla;
 import util.DbUtil;
 
 public class EsquemaDAO {
-    
-    private Connection connection;
 
-    public EsquemaDAO() {
+    private static Connection connection;
+
+    public EsquemaDAO() throws SQLException {
         connection = DbUtil.getConnection();
     }
 
-    public void addEsquema(Esquema esquema) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("insert into esquema(nombre_esquema) values (?)");
-        preparedStatement.setString(1, esquema.getNombre_esquema());
-        preparedStatement.executeUpdate();
-    }
-
-    public void deleteEsquema(int id_esquema) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("delete from esquema where id_esquema=?");
-        preparedStatement.setInt(1, id_esquema);
-        preparedStatement.executeUpdate();
-    }
-
-    public void updateEsquema(Esquema esquema) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("update esquema set nombre_esquema=?" + "where id_esquema=?");
-        preparedStatement.setString(1, esquema.getNombre_esquema());
-        preparedStatement.executeUpdate();
-    }
-
-    public List<Esquema> getAllTables() throws SQLException {
-        List<Esquema> esquemas = new ArrayList<>();
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from esquema");
-        while (rs.next()) {
-            Esquema esquema = new Esquema();
-            esquema.setId_esquema(rs.getInt("id_esquema"));
-            esquema.setNombre_esquema(rs.getString("nombre_esquema"));
-            esquemas.add(esquema);
+    public boolean addEsquema(Esquema esquema) throws SQLException {
+        boolean result = false;
+        Connection connection = DbUtil.getConnection();
+        String query = "insert into esquema (esquema.nombre_esquema) values (?);";
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, esquema.getNombre_esquema());
+            result = preparedStmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return esquemas;
+        return result;
     }
 
-    public Esquema getEsquemaById(int id_esquema) throws SQLException {
-        Esquema esquema = new Esquema();
-        PreparedStatement preparedStatement = connection.prepareStatement("select * from esquema where id_esquema=?");
-        preparedStatement.setInt(1, id_esquema);
-        ResultSet rs = preparedStatement.executeQuery();
-        if (rs.next()) {
-            esquema.setId_esquema(rs.getInt("id_esquema"));
-            esquema.setNombre_esquema(rs.getString("nombre_esquema"));
+    public boolean deleteEsquema(int a) throws SQLException {
+        boolean result = false;
+        Connection connection = DbUtil.getConnection();
+        String query = "delete from esquema where id_esquema = ?";
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setInt(1, a);
+            result = preparedStmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
+        return result;
+    }
+
+    public boolean updateEsquema(int a, String nombreNuevo) throws SQLException {
+        boolean result = false;
+        Connection connection = DbUtil.getConnection();
+        String query = "update esquema set nombre_esquema = ? where id_esquema = ?";
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, nombreNuevo);
+            preparedStmt.setInt(2, a);
+            if (preparedStmt.executeUpdate() > 0) {
+                result = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public List<Esquema> getAllEsquemas() throws SQLException {
+        List<Esquema> esquema = null;
+        String query = "SELECT * FROM esquema";
+        Connection connection = DbUtil.getConnection();
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            int id = 0;
+            String nombre = null;
+
+            while (rs.next()) {
+                if (esquema == null) {
+                    esquema = new ArrayList<Esquema>();
+                }
+
+                Esquema registro = new Esquema(nombre);
+                id = rs.getInt("id_esquema");
+                registro.setId_esquema(id);
+
+                nombre = rs.getString("nombre_esquema");
+                registro.setNombre_esquema(nombre);
+
+                esquema.add(registro);
+
+            }
+            for (int i = 0; i < esquema.size(); i++) {
+                System.out.println(esquema.get(i).getId_esquema() + " " + esquema.get(i).getNombre_esquema());
+            }
+            st.close();
+
+        } catch (SQLException e) {
+            System.out.println("Problemas al obtener la lista de Esquemas");
+            e.printStackTrace();
+        }
+
         return esquema;
-    }   
-    
+    }
 }

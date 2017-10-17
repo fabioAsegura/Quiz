@@ -14,55 +14,105 @@ public class TablaDAO {
 
     private Connection connection;
 
-    public TablaDAO() {
+    public TablaDAO() throws SQLException {
         connection = DbUtil.getConnection();
     }
 
-    public void addTabla(Tabla tabla) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("insert into tabla(nombre_tabla, id_esquema) values (?, ?)");
-        preparedStatement.setString(1, tabla.getNombre_tabla());
-        preparedStatement.setInt(2, tabla.getId_esquema());
-        preparedStatement.executeUpdate();
-    }
-
-    public void deleteTabla(int id_tabla) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("delete from tabla where id_tabla=?");
-        preparedStatement.setInt(1, id_tabla);
-        preparedStatement.executeUpdate();
-    }
-
-    public void updateTabla(Tabla tabla) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("update tabla set nombre_tabla=?, id_esquema=?" + "where id_tabla=?");
-        preparedStatement.setString(1, tabla.getNombre_tabla());
-        preparedStatement.setInt(2, tabla.getId_esquema());
-        preparedStatement.executeUpdate();
-    }
-
-    public List<Tabla> getAllTables() throws SQLException {
-        List<Tabla> tablas = new ArrayList<>();
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from tabla");
-        while (rs.next()) {
-            Tabla tabla = new Tabla();
-            tabla.setId_tabla(rs.getInt("id_tabla"));
-            tabla.setNombre_tabla(rs.getString("nombre_tabla"));
-            tabla.setId_esquema(rs.getInt("id_esquema"));
-            tablas.add(tabla);
+    public boolean addTabla(Tabla tabla) throws SQLException {
+          boolean result = false;
+        Connection connection = DbUtil.getConnection();
+        String query = "insert into tabla (tabla.nombre_tabla,tabla.id_esquema) values (?, ? );";
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, tabla.getNombre_tabla());
+            preparedStmt.setInt(2, tabla.getId_esquema());
+            result = preparedStmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return tablas;
+        return result;
     }
 
-    public Tabla getTablaById(int id_tabla) throws SQLException {
-        Tabla tabla = new Tabla();
-        PreparedStatement preparedStatement = connection.prepareStatement("select * from tabla where id_tabla=?");
-        preparedStatement.setInt(1, id_tabla);
-        ResultSet rs = preparedStatement.executeQuery();
-        if (rs.next()) {
-            tabla.setId_tabla(rs.getInt("id_tabla"));
-            tabla.setNombre_tabla(rs.getString("nombre_tabla"));
-            tabla.setId_esquema(rs.getInt("id_esquema"));
+    public boolean deleteTabla(int a) throws SQLException {
+        boolean result = false;
+        Connection connection = DbUtil.getConnection();
+        String query = "delete from tabla where id_tabla = ?";
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setInt(1, a);
+            result = preparedStmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
+        return result;
+    }
+
+    public boolean updateTabla(int a, String nombreNuevo) throws SQLException {
+        boolean result = false;
+        Connection connection = DbUtil.getConnection();
+        String query = "update tabla set nombre_tabla = ? where id_tabla = ?";
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, nombreNuevo);
+            preparedStmt.setInt(2, a);
+            if (preparedStmt.executeUpdate() > 0) {
+                result = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public List<Tabla> getAllTables(int a) throws SQLException {
+      List<Tabla> tabla = null;
+      boolean result = false;
+        String query = "SELECT * FROM tabla WHERE id_esquema="+a;
+        Connection connection = DbUtil.getConnection();
+        try {
+            
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+           
+            int id =0;
+            String nombre = null;
+            int id_esquema = 0;
+
+            while (rs.next()) {
+                if (tabla == null) {
+                    tabla = new ArrayList<Tabla>();
+                }
+                Tabla registro = new Tabla(nombre,id_esquema);
+                id = rs.getInt("id_tabla");
+                registro.setId_tabla(id);
+
+                nombre = rs.getString("nombre_tabla");
+                registro.setNombre_tabla(nombre);
+                
+                id_esquema = rs.getInt("id_esquema");
+                registro.setId_esquema(id_esquema);
+
+
+                tabla.add(registro);
+
+            }
+            for (int i = 0; i < tabla.size(); i++) {
+                System.out.println(tabla.get(i).getId_tabla() + " " + tabla.get(i).getNombre_tabla()+" "+tabla.get(i).getId_esquema());
+            }
+            st.close();
+
+        } catch (SQLException e) {
+            System.out.println("Problemas al obtener la lista de Tablas");
+            e.printStackTrace();
+        }
+
         return tabla;
+    
     }
-
 }

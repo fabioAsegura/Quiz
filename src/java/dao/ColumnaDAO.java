@@ -14,59 +14,136 @@ public class ColumnaDAO {
 
     private Connection connection;
 
-    public ColumnaDAO() {
+    public ColumnaDAO() throws SQLException {
         connection = DbUtil.getConnection();
     }
 
-    public void addColumna(Columna columna) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("insert into columna(nombre_columna, data_type, id_tabla) values (?, ?, ?)");
-        preparedStatement.setString(1, columna.getNombre_columna());
-        preparedStatement.setString(2, columna.getData_type());
-        preparedStatement.setInt(3, columna.getId_tabla());
-        preparedStatement.executeUpdate();
-    }
-
-    public void deleteColumna(int id_columna) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("delete from columna where id_columna=?");
-        preparedStatement.setInt(1, id_columna);
-        preparedStatement.executeUpdate();
-    }
-
-    public void updateColumna(Columna columna) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("update columna set nombre_columna=?, data_type=?, id_tabla=?" + "where id_columna=?");
-        preparedStatement.setString(1, columna.getNombre_columna());
-        preparedStatement.setString(2, columna.getData_type());
-        preparedStatement.setInt(3, columna.getId_tabla());
-        preparedStatement.executeUpdate();
-    }
-
-    public List<Columna> getAllColumna() throws SQLException {
-        List<Columna> columnas = new ArrayList<>();
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from columna");
-        while (rs.next()) {
-            Columna columna = new Columna();
-            columna.setId_columna(rs.getInt("id_columna"));
-            columna.setNombre_columna(rs.getString("nombre_columna"));
-            columna.setData_type(rs.getString("data_type"));
-            columna.setId_tabla(rs.getInt("id_tabla"));
-            columnas.add(columna);
+    public static boolean addColumna(Columna columna) throws SQLException {
+       boolean result = false;
+        Connection connection = DbUtil.getConnection();
+        String query = "insert into columna (columna.nombre_columna,columna.data_type,columna.id_tabla) values (?, ?, ?);";
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, columna.getNombre_columna());
+            preparedStmt.setString(2, columna.getData_type());
+             preparedStmt.setInt(3, columna.getId_tabla());
+            result = preparedStmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return columnas;
+        return result;
     }
 
-    public Columna getTablaById(int id_columna) throws SQLException {
-        Columna columna = new Columna();
-        PreparedStatement preparedStatement = connection.prepareStatement("select * from columna where id_columna=?");
-        preparedStatement.setInt(1, id_columna);
-        ResultSet rs = preparedStatement.executeQuery();
-        if (rs.next()) {
-            columna.setId_columna(rs.getInt("id_columna"));
-            columna.setNombre_columna(rs.getString("nombre_columna"));
-            columna.setData_type(rs.getString("data_typea"));
-            columna.setId_tabla(rs.getInt("id_tabla"));
+    public static boolean deleteColumna(int a) throws SQLException {
+          boolean result = false;
+        Connection connection = DbUtil.getConnection();
+        String query = "delete from columna where id_columna = ?";
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setInt(1, a);
+            result = preparedStmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
+        return result;
+    }
+
+    public static boolean updateColumna(int a, String nombreNuevo) throws SQLException {
+         boolean result = false;
+        Connection connection = DbUtil.getConnection();
+        String query = "update columna set nombre_columna = ? where id_columna = ?";
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, nombreNuevo);
+            preparedStmt.setInt(2, a);
+            if (preparedStmt.executeUpdate() > 0) {
+                result = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+    public static boolean updateColumnaDataType(int a, String nuevoDataType) throws SQLException {
+         boolean result = false;
+        Connection connection = DbUtil.getConnection();
+        String query = "update columna set data_type = ? where id_columna = ?";
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, nuevoDataType);
+            preparedStmt.setInt(2, a);
+            if (preparedStmt.executeUpdate() > 0) {
+                result = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static List<Columna> getAllColumna(int a) throws SQLException {
+      List<Columna> columna = null;
+      boolean result = false;
+        String query = "SELECT * FROM columna WHERE id_tabla="+a;
+        Connection connection = DbUtil.getConnection();
+        try {
+            
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+           int id=0;
+            String data_type=null;
+            String nombre = null;
+            int id_tabla = 0;
+
+            while (rs.next()) {
+                if (columna == null) {
+                    columna = new ArrayList<Columna>();
+                }
+                Columna registro = new Columna(nombre,data_type,id_tabla);
+                id = rs.getInt("id_columna");
+                registro.setId_columna(id);
+
+                nombre = rs.getString("nombre_columna");
+                registro.setNombre_columna(nombre);
+                
+                data_type=rs.getString("data_type");
+                registro.setData_type(data_type);
+                
+                id_tabla = rs.getInt("id_tabla");
+                registro.setId_tabla(id);
+
+
+                columna.add(registro);
+
+            }
+            for (int i = 0; i < columna.size(); i++) {
+                System.out.println(columna.get(i).getId_columna()+ " " + columna.get(i).getNombre_columna()+" "+columna.get(i).getData_type());
+            }
+            st.close();
+
+        } catch (SQLException e) {
+            System.out.println("Problemas al obtener la lista de Columnas");
+            e.printStackTrace();
+        }
+
         return columna;
+    
     }
 
+    public static void main(String[] args) throws SQLException {
+       //Columna x= new Columna("Andres","Int",3);
+       //addColumna(x);
+        //deleteColumna(9);
+        updateColumnaDataType(10, "varchar");
+       getAllColumna(3);
+    }
 }

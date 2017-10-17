@@ -5,6 +5,11 @@ public class Esquema {
     private int id_esquema;
     private String nombre_esquema;
 
+    public Esquema(String nombre_esquema) {
+        this.nombre_esquema = nombre_esquema;
+    }
+    
+   
     public int getId_esquema() {
         return id_esquema;
     }

@@ -7,6 +7,13 @@ public class Columna {
     private String data_type;
     private int id_tabla;
 
+    public Columna(String nombre_columna, String data_type, int id_tabla) {
+        this.nombre_columna = nombre_columna;
+        this.data_type = data_type;
+        this.id_tabla = id_tabla;
+    }
+
+    
     public int getId_columna() {
         return id_columna;
     }
