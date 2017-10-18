@@ -64,6 +64,8 @@ public class EditarTablas extends HttpServlet {
             throws ServletException, IOException {
         try {
             TablaDAO dao = new TablaDAO();
+            String id = request.getParameter("id");
+            request.setAttribute("id", id);
 
            request.getRequestDispatcher("EditTablas.jsp").forward(request, response);
 

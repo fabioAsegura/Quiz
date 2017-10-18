@@ -18,14 +18,13 @@
     <body background="fondo.jpg">
         <%
             String id= (String)request.getAttribute("id");
-            String n= (String)request.getAttribute("n");
             %>
         <h1>Inserte el  Nuevo Esquema</h1>
         <form action="EditarEsquemas" method="POST">
            Nuevo Nombre:
-           <input type="text" name="nombreE" value="<%=n%> "/>
+           <input type="text" name="nombreE"/>
             Id del esquema:
-            <input type="text" name="id" value="<%=id%>"/>
+            <input type="text" name="id" value="<%=id%>" readonly="readonly"/>
             <br>
             <input type="submit" class="btn btn-info" name="Enviar"/>
         </form>

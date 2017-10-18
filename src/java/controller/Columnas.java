@@ -1,3 +1,5 @@
+package controller;
+
 import dao.ColumnaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,7 +63,7 @@ public class Columnas extends HttpServlet {
             ColumnaDAO obj = new ColumnaDAO();
             ArrayList<Columna> lista = (ArrayList<Columna>)obj.getAllColumna();
             
-            request.setAttribute("listaColumna", lista);
+            request.setAttribute("listaColumnas", lista);
             
            request.getRequestDispatcher("Columna.jsp").forward(request, response);
 
@@ -76,18 +78,19 @@ public class Columnas extends HttpServlet {
             throws ServletException, IOException {
         
          try {
-             String type= (String) request.getParameter("var");
+            String type= (String) request.getParameter("tipoclave");
             String nombre = (String) request.getParameter("nameColumna");
-             int idT = Integer.parseInt(request.getParameter("idTabla"));
+            String datatype = (String) request.getParameter("datatype");
+            int id = Integer.parseInt(request.getParameter("idTabla"));
              
              
             ColumnaDAO dao = new ColumnaDAO();
-            Columna tab = new Columna(nombre, type, idT);
+            Columna tab = new Columna(nombre, datatype, id);
             
             dao.addColumna(tab);
            
             
-            response.sendRedirect("columna");
+            response.sendRedirect("Columnas");
             
         } catch (SQLException ex) {
             Logger.getLogger(Columnas.class.getName()).log(Level.SEVERE, null, ex);

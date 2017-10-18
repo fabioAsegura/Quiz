@@ -41,7 +41,7 @@ public class BorrarTablas extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditarEsquemas</title>");            
+            out.println("<title>Servlet EditarEsquemas</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet EditarEsquemas at " + request.getContextPath() + "</h1>");
@@ -64,8 +64,9 @@ public class BorrarTablas extends HttpServlet {
             throws ServletException, IOException {
         try {
             TablaDAO dao = new TablaDAO();
-
-           request.getRequestDispatcher("BorrarTabla.jsp").forward(request, response);
+            String id = request.getParameter("id");
+            request.setAttribute("id", id);
+            request.getRequestDispatcher("BorrarTabla.jsp").forward(request, response);
 
         } catch (SQLException ex) {
             Logger.getLogger(EditarTablas.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,13 +85,13 @@ public class BorrarTablas extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         
+
         try {
-            
+
             int id = Integer.parseInt(request.getParameter("id"));
             TablaDAO dao = new TablaDAO();
             dao.deleteTabla(id);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(EditarTablas.class.getName()).log(Level.SEVERE, null, ex);
         }

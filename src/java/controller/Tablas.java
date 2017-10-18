@@ -95,7 +95,7 @@ public class Tablas extends HttpServlet {
             response.sendRedirect("Tablas");
             
         } catch (SQLException ex) {
-            Logger.getLogger(Esquemas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tablas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

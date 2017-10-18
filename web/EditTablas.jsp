@@ -16,12 +16,16 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
     <body background="fondo.jpg">
+        <%
+            String id= (String)request.getAttribute("id");
+          
+            %>
         <h1>Inserte la nueva tabla</h1>
         <form action="EditarTablas" method="POST">
            Nuevo Nombre:
             <input type="text" name="nombreT"/>
             Id de la tabla:
-            <input type="text" name="id"/>
+            <input type="text" name="id" value="<%=id%>" readonly="readonly"/>
             <br>
             <input type="submit" class="btn btn-info" name="Enviar"/>
         </form>

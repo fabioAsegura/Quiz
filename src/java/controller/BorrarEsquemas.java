@@ -64,6 +64,8 @@ public class BorrarEsquemas extends HttpServlet {
             throws ServletException, IOException {
         try {
             EsquemaDAO dao = new EsquemaDAO();
+            String id= request.getParameter("id");
+            request.setAttribute("id", id);
 
            request.getRequestDispatcher("BorrarEsquema.jsp").forward(request, response);
 

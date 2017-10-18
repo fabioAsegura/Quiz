@@ -124,6 +124,7 @@ public class ColumnaDAO {
                 columna.add(registro);
 
             }
+             if(columna!=null)
             for (int i = 0; i < columna.size(); i++) {
                 System.out.println(columna.get(i).getId_columna()+ " " + columna.get(i).getNombre_columna()+" "+columna.get(i).getData_type());
             }

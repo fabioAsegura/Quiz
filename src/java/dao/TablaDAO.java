@@ -102,6 +102,7 @@ public class TablaDAO {
                 tabla.add(registro);
 
             }
+             if(tabla!=null)
             for (int i = 0; i < tabla.size(); i++) {
                 System.out.println(tabla.get(i).getId_tabla() + " " + tabla.get(i).getNombre_tabla()+" "+tabla.get(i).getId_esquema());
             }

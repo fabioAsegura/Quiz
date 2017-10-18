@@ -51,8 +51,8 @@
                             <td><%=esquema.getNombre_esquema()%></td>
                             <td>
 
-                                <button onclick="window.location.href='EditarEsquemas?id=<%=esquema.getId_esquema()%>&n=<%=esquema.getNombre_esquema()%>'" class="btn btn-warning">Editar</button>
-                                <button onclick="window.location.href='BorrarEsquemas'" class="btn btn-danger">Borrar</button>
+                                <button onclick="window.location.href='EditarEsquemas?id=<%=esquema.getId_esquema()%>'" class="btn btn-warning">Editar</button>
+                                <button onclick="window.location.href='BorrarEsquemas?id=<%=esquema.getId_esquema()%>'" class="btn btn-danger">Borrar</button>
                             </td>
                         </tr>
 

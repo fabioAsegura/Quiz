@@ -16,10 +16,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
     <body background="fondo.jpg">
+         <%
+            String id= (String)request.getAttribute("id");
+            %>
         <h1>Borrar Esquema</h1>
         <form action="BorrarEsquemas" method="POST">    
             Id del esquema:
-            <input type="text" name="id"/>
+            <input type="text" name="id" value="<%=id%>" readonly="readonly" />
             <br>
             <input type="submit" class="btn btn-info" name="Enviar"/>
         </form>
