@@ -1,9 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <display-name>SimpleJspServletDB</display-name>
+    <servlet>
+        <servlet-name>Esquemas</servlet-name>
+        <servlet-class>controller.Esquemas</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Tablas</servlet-name>
+        <servlet-class>controller.Tablas</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditarEsquemas</servlet-name>
+        <servlet-class>controller.EditarEsquemas</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BorrarEsquemas</servlet-name>
+        <servlet-class>controller.BorrarEsquemas</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Columna</servlet-name>
+        <servlet-class>controller.Columna</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerTablas</servlet-name>
+        <servlet-class>controller.VerTablas</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Irtablas</servlet-name>
+        <servlet-class>controller.Irtablas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ClienteController</servlet-name>
         <url-pattern>/ClienteController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Esquemas</servlet-name>
+        <url-pattern>/Esquemas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Tablas</servlet-name>
+        <url-pattern>/Tablas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditarEsquemas</servlet-name>
+        <url-pattern>/EditarEsquemas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorrarEsquemas</servlet-name>
+        <url-pattern>/BorrarEsquemas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Columna</servlet-name>
+        <url-pattern>/Columna</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerTablas</servlet-name>
+        <url-pattern>/VerTablas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Irtablas</servlet-name>
+        <url-pattern>/Irtablas</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

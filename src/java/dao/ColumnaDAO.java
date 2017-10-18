@@ -138,12 +138,4 @@ public class ColumnaDAO {
         return columna;
     
     }
-
-    public static void main(String[] args) throws SQLException {
-       //Columna x= new Columna("Andres","Int",3);
-       //addColumna(x);
-        //deleteColumna(9);
-        updateColumnaDataType(10, "varchar");
-       getAllColumna(3);
-    }
 }
