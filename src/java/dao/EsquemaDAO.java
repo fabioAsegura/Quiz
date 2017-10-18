@@ -94,6 +94,7 @@ public class EsquemaDAO {
                 esquema.add(registro);
 
             }
+           if(esquema!=null)
             for (int i = 0; i < esquema.size(); i++) {
                 System.out.println(esquema.get(i).getId_esquema() + " " + esquema.get(i).getNombre_esquema());
             }

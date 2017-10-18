@@ -65,6 +65,12 @@ public class EditarEsquemas extends HttpServlet {
         try {
             EsquemaDAO dao = new EsquemaDAO();
 
+            String n = request.getParameter("n");
+            String id = request.getParameter("id");
+            request.setAttribute("n", n);
+            request.setAttribute("id", id);
+            
+            
            request.getRequestDispatcher("EditEsquemas.jsp").forward(request, response);
 
         } catch (SQLException ex) {

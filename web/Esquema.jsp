@@ -36,27 +36,29 @@
                         <td>Acciones</td>
                     </tr>
                     
-                    <% if (request.getAttribute("listaEsquemas") != null) {
-                        ArrayList<Esquema> list = (ArrayList<Esquema>) request.getAttribute("listaEsquemas");
+                    <% 
                         
-                        for (Esquema esquema : list) {
-                                
-                    
-                    %>
-                    
-                     <tr>
-                        <td><%=esquema.getId_esquema()%></td>
-                        <td><%=esquema.getNombre_esquema()%></td>
-                        <td>
-                            
-                            <button onclick="window.location.href='EditarEsquemas'" class="btn btn-warning">Editar</button>
-                            <button onclick="window.location.href='BorrarEsquemas'" class="btn btn-danger">Borrar</button>
-                        </td>
-                    </tr>
-                    
-                    <% } 
-                    }
-                    %>
+                        if (request.getAttribute("listaEsquemas") != null) {
+                        ArrayList<Esquema> list = (ArrayList<Esquema>) request.getAttribute("listaEsquemas");
+                        if(list!= null)
+                            for (Esquema esquema : list) {
+
+
+                        %>
+
+                         <tr>
+                            <td><%=esquema.getId_esquema()%></td>
+                            <td><%=esquema.getNombre_esquema()%></td>
+                            <td>
+
+                                <button onclick="window.location.href='EditarEsquemas?id=<%=esquema.getId_esquema()%>&n=<%=esquema.getNombre_esquema()%>'" class="btn btn-warning">Editar</button>
+                                <button onclick="window.location.href='BorrarEsquemas'" class="btn btn-danger">Borrar</button>
+                            </td>
+                        </tr>
+
+                        <% } 
+                        }
+                        %>
                 </table>
             </div>
         </div>
