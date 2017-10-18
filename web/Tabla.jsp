@@ -16,7 +16,7 @@
     <body background="fondo.jpg">
        <h1>Inserte la Tabla</h1>
         <form action="Tablas" method="POST">
-            Nombre:
+            Nombre de la tabla:
             <input type="text" name="nameTabla"/>
             Id Esquema:
             <input type="text" name="idEsquema"/>

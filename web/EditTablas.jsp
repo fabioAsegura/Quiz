@@ -17,7 +17,7 @@
 </head>
     <body background="fondo.jpg">
         <h1>Inserte la nueva tabla</h1>
-        <form action="EditarEsquemas" method="POST">
+        <form action="EditarTablas" method="POST">
            Nuevo Nombre:
             <input type="text" name="nombreT"/>
             Id de la tabla:

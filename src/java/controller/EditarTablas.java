@@ -92,9 +92,9 @@ public class EditarTablas extends HttpServlet {
             dao.updateTabla(id, nombreT);
             
         } catch (SQLException ex) {
-            Logger.getLogger(EditarEsquemas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditarTablas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        response.sendRedirect("EditarTablas");
+        response.sendRedirect("Tablas");
         processRequest(request, response);
     }
 

@@ -29,6 +29,14 @@
         <servlet-name>Irtablas</servlet-name>
         <servlet-class>controller.Irtablas</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditarTablas</servlet-name>
+        <servlet-class>controller.EditarTablas</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BorrarTablas</servlet-name>
+        <servlet-class>controller.BorrarTablas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ClienteController</servlet-name>
         <url-pattern>/ClienteController</url-pattern>
@@ -60,6 +68,14 @@
     <servlet-mapping>
         <servlet-name>Irtablas</servlet-name>
         <url-pattern>/Irtablas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditarTablas</servlet-name>
+        <url-pattern>/EditarTablas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorrarTablas</servlet-name>
+        <url-pattern>/BorrarTablas</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

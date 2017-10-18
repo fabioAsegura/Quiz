@@ -63,12 +63,12 @@ public class BorrarTablas extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            EsquemaDAO dao = new EsquemaDAO();
+            TablaDAO dao = new TablaDAO();
 
            request.getRequestDispatcher("BorrarTabla.jsp").forward(request, response);
 
         } catch (SQLException ex) {
-            Logger.getLogger(EditarEsquemas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditarTablas.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -92,9 +92,9 @@ public class BorrarTablas extends HttpServlet {
             dao.deleteTabla(id);
             
         } catch (SQLException ex) {
-            Logger.getLogger(EditarEsquemas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditarTablas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        response.sendRedirect("BorrarTabla");
+        response.sendRedirect("Tablas");
         processRequest(request, response);
     }
 
