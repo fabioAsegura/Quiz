@@ -64,12 +64,14 @@ public class EditarColumnas extends HttpServlet {
             throws ServletException, IOException {
         try {
             ColumnaDAO dao = new ColumnaDAO();
+            String id = request.getParameter("id");
+            request.setAttribute("id", id);
+
+           request.getRequestDispatcher("EditColumnas.jsp").forward(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(EditarColumnas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditarTablas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String id = request.getParameter("id");
-        request.setAttribute("id", id);
-        request.getRequestDispatcher("EditColumnas.jsp").forward(request, response);
 
     }
 
@@ -82,22 +84,21 @@ public class EditarColumnas extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          
-        String nombreC=(String) request.getParameter("nombreC");
-        int id = Integer.parseInt(request.getParameter("id"));
-        ColumnaDAO dao;
         try {
-            dao = new ColumnaDAO();
+            String nombreC=(String) request.getParameter("nombreC");
+            int id = Integer.parseInt(request.getParameter("id"));
+            ColumnaDAO dao = new ColumnaDAO();
+            dao.updateColumna(id, nombreC);
+            
         } catch (SQLException ex) {
             Logger.getLogger(EditarColumnas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dao.updateColumna(id, nombreT);
         response.sendRedirect("Columnas");
         processRequest(request, response);
     }
-
     /**
      * Returns a short description of the servlet.
      *

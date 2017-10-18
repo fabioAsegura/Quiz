@@ -23,6 +23,8 @@
             <br>
             <br>  
             <input type="submit" class="btn btn-info" name="enviar"/>
+            <a class="btn btn-info" href="Columna.jsp" role="button">Crear Columna</a>
+            <a class="btn btn-info" href="index.jsp" role="button">Inicio</a>
         </form>
 
         <h1>Tablas</h1>

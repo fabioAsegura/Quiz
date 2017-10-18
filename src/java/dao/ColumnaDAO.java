@@ -118,7 +118,7 @@ public class ColumnaDAO {
                 registro.setData_type(data_type);
                 
                 id_tabla = rs.getInt("id_tabla");
-                registro.setId_tabla(id);
+                registro.setId_tabla(id_tabla);
 
 
                 columna.add(registro);

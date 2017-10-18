@@ -37,6 +37,7 @@
             <br>
             <br>  
             <input type="submit" class="btn btn-info" name="enviar"/>
+            <a class="btn btn-info" href="index.jsp" role="button">Inicio</a>
         </form>
         <h1>Columnas</h1>
         <div class="container">
@@ -66,8 +67,8 @@
                             <td><%=col.getId_tabla()%></td>
 
                             <td>
-                                <button onclick="window.location.href = 'EditarEsquemas'" class="btn btn-warning">Editar</button>
-                                <button onclick="window.location.href = 'BorrarEsquemas'" class="btn btn-danger">Borrar</button>
+                                <button onclick="window.location.href = 'EditarColumnas?id=<%=col.getId_columna()%>'" class="btn btn-warning">Editar</button>
+                                <button onclick="window.location.href = 'BorrarColumnas?id=<%=col.getId_columna()%>'" class="btn btn-danger">Borrar</button>
                             </td>
                         </tr>
                         <% }
