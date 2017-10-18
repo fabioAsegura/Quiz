@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package controller;
-
-import dao.TablaDAO;
+import dao.ColumnaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -16,14 +9,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Columna;
+import model.Esquema;
 import model.Tabla;
 
 /**
  *
  * @author User
  */
-public class VerTablas extends HttpServlet {
-   
+public class Columnas extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +36,10 @@ public class VerTablas extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet VerTablas</title>");            
+            out.println("<title>Servlet Columna</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet VerTablas at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Columna at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,40 +54,46 @@ public class VerTablas extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        try {
-          TablaDAO dao = new TablaDAO();
-             ArrayList<Tabla> lista=(ArrayList<Tabla>) dao.getAllTables(20);
-          request.setAttribute("listaTablas", lista);
-           request.getRequestDispatcher("VerTabla.jsp").forward(request, response);
+         try {
+            ColumnaDAO obj = new ColumnaDAO();
+            ArrayList<Columna> lista = (ArrayList<Columna>)obj.getAllColumna();
+            
+            request.setAttribute("listaColumna", lista);
+            
+           request.getRequestDispatcher("Columna.jsp").forward(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(VerTablas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Columnas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        response.sendRedirect("VerTablas");
+         try {
+             String type= (String) request.getParameter("var");
+            String nombre = (String) request.getParameter("nameColumna");
+             int idT = Integer.parseInt(request.getParameter("idTabla"));
+             
+             
+            ColumnaDAO dao = new ColumnaDAO();
+            Columna tab = new Columna(nombre, type, idT);
+            
+            dao.addColumna(tab);
+           
+            
+            response.sendRedirect("columna");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Columnas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

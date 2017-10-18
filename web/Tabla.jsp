@@ -25,14 +25,41 @@
             <input type="submit" class="btn btn-info" name="enviar"/>
         </form>
        
-       <h1>Ver Tabla:</h1>
-       <form action="Irtablas" method="POST">
-           Id Esquema:
-           <input type="text" name="idEsque"/>
-           <br>
-            <br>  
-            <input type="submit" class="btn btn-success" name="Ver"/>
-       </form>
+       <h1>Tablas</h1>
+          <div class="container">
+        <div class="row">  
+            <div class="col-sm-12">
+                <table class="table table-hover table-condensed table-bordered">
+                    <tr>
+                        <td>Id</td>
+                        <td>Nombre</td>
+                        <td>IdEsquema</td>
+                        <td>Acciones</td>
+   
+                    </tr>
+                      <% if (request.getAttribute("listaTablas") != null) {
+                        ArrayList<Tabla> list = (ArrayList<Tabla>) request.getAttribute("listaTablas");
+                        
+                        for (Tabla tabla : list) {
+                                
+                    
+                    %>
+                    <tr>
+                        <td><%=tabla.getId_tabla()%></td>
+                        <td><%=tabla.getNombre_tabla()%></td>
+                        <td><%=tabla.getId_esquema()%></td>
+                        <td>
+                            <button onclick="window.location.href='EditarTablas'" class="btn btn-warning">Editar</button>
+                            <button onclick="window.location.href='BorrarTablas'" class="btn btn-danger">Borrar</button>
+                        </td>
+                    </tr>
+                     <% } 
+                    }
+                    %>
+                </table>
+            </div>
+        </div>
+            </div>
        
     </body>
 </html>

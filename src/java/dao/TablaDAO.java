@@ -70,10 +70,10 @@ public class TablaDAO {
         return result;
     }
 
-    public List<Tabla> getAllTables(int a) throws SQLException {
+    public List<Tabla> getAllTables() throws SQLException {
       List<Tabla> tabla = null;
       boolean result = false;
-        String query = "SELECT * FROM tabla WHERE id_esquema="+a;
+        String query = "SELECT * FROM tabla";
         Connection connection = DbUtil.getConnection();
         try {
             
@@ -115,4 +115,5 @@ public class TablaDAO {
         return tabla;
     
     }
+  
 }

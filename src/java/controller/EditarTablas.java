@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.EsquemaDAO;
 import dao.TablaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +22,7 @@ import model.Tabla;
  *
  * @author User
  */
-public class Irtablas extends HttpServlet {
+public class EditarTablas extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +41,10 @@ public class Irtablas extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Irtablas</title>");            
+            out.println("<title>Servlet EditarEsquemas</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Irtablas at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditarEsquemas at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,7 +62,15 @@ public class Irtablas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            TablaDAO dao = new TablaDAO();
+
+           request.getRequestDispatcher("EditTablas.jsp").forward(request, response);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EditarTablas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -75,10 +84,18 @@ public class Irtablas extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-             int id = Integer.parseInt(request.getParameter("idEsque"));
-             
-            response.sendRedirect("VerTablas");
+         
+        try {
+            String nombreT=(String) request.getParameter("nombreT");
+            int id = Integer.parseInt(request.getParameter("id"));
+            TablaDAO dao = new TablaDAO();
+            dao.updateTabla(id, nombreT);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(EditarEsquemas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        response.sendRedirect("EditarTablas");
+        processRequest(request, response);
     }
 
     /**

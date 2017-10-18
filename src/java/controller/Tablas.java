@@ -64,17 +64,19 @@ public class Tablas extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          try {
-
-            TablaDAO dao = new TablaDAO();
-        
+            TablaDAO obj = new TablaDAO();
+            
+            ArrayList<Tabla> lista = (ArrayList<Tabla>) obj.getAllTables();
+            
+            request.setAttribute("listaTablas", lista);
+            
            request.getRequestDispatcher("Tabla.jsp").forward(request, response);
 
         } catch (SQLException ex) {
-            Logger.getLogger(Tabla.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tablas.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
 
-    
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

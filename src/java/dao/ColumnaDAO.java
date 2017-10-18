@@ -18,7 +18,7 @@ public class ColumnaDAO {
         connection = DbUtil.getConnection();
     }
 
-    public static boolean addColumna(Columna columna) throws SQLException {
+    public boolean addColumna(Columna columna) throws SQLException {
        boolean result = false;
         Connection connection = DbUtil.getConnection();
         String query = "insert into columna (columna.nombre_columna,columna.data_type,columna.id_tabla) values (?, ?, ?);";
@@ -35,7 +35,7 @@ public class ColumnaDAO {
         return result;
     }
 
-    public static boolean deleteColumna(int a) throws SQLException {
+    public boolean deleteColumna(int a) throws SQLException {
           boolean result = false;
         Connection connection = DbUtil.getConnection();
         String query = "delete from columna where id_columna = ?";
@@ -51,7 +51,7 @@ public class ColumnaDAO {
         return result;
     }
 
-    public static boolean updateColumna(int a, String nombreNuevo) throws SQLException {
+    public boolean updateColumna(int a, String nombreNuevo) throws SQLException {
          boolean result = false;
         Connection connection = DbUtil.getConnection();
         String query = "update columna set nombre_columna = ? where id_columna = ?";
@@ -70,7 +70,7 @@ public class ColumnaDAO {
 
         return result;
     }
-    public static boolean updateColumnaDataType(int a, String nuevoDataType) throws SQLException {
+    public boolean updateColumnaDataType(int a, String nuevoDataType) throws SQLException {
          boolean result = false;
         Connection connection = DbUtil.getConnection();
         String query = "update columna set data_type = ? where id_columna = ?";
@@ -90,13 +90,12 @@ public class ColumnaDAO {
         return result;
     }
 
-    public static List<Columna> getAllColumna(int a) throws SQLException {
+    public List<Columna> getAllColumna() throws SQLException {
       List<Columna> columna = null;
       boolean result = false;
-        String query = "SELECT * FROM columna WHERE id_tabla="+a;
+        String query = "SELECT * FROM columna";
         Connection connection = DbUtil.getConnection();
-        try {
-            
+        try {    
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
            int id=0;
@@ -138,4 +137,5 @@ public class ColumnaDAO {
         return columna;
     
     }
+
 }

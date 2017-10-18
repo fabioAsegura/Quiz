@@ -36,7 +36,7 @@
 <a  href="Tablas">
 <button type="button" class="btn btn-success btn-lg">TABLA</button>
 </a>
-<a  href="Columna">
+<a  href="Columnas">
 <button   type="button" class="btn btn-danger btn-lg">COLUMNA</button>  
 </a>
 </div>
