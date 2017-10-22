@@ -39,6 +39,9 @@
 <a  href="Columnas">
 <button   type="button" class="btn btn-danger btn-lg">COLUMNA</button>  
 </a>
+    <a  href="ModeloNavegacion.jsp">
+<button   type="button" class="btn btn-danger btn-lg">MODELO NAVEGACION</button>  
+</a>
 </div>
         </div>
     </body>

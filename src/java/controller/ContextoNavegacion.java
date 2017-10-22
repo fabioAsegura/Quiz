@@ -5,10 +5,12 @@
  */
 package controller;
 
+import dao.ContextoNavegacionDAO;
 import dao.EsquemaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -16,7 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Esquema;
+import model.ContextoNavegacionM;
 
 /**
  *
@@ -63,8 +65,9 @@ public class ContextoNavegacion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        request.getRequestDispatcher("ContextoNavegacion.jsp").forward(request, response);
+          
+           request.getRequestDispatcher("ContextoNavegacion.jsp").forward(request, response);
+
     }
 
     /**
@@ -79,7 +82,24 @@ public class ContextoNavegacion extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+            try {
+            
+            int id=Integer.parseInt(request.getParameter("idContexto"));
+            String Link = (String) request.getParameter("link");
+            int idU=Integer.parseInt(request.getParameter("idUnidad"));
+    
+            
+            ContextoNavegacionDAO dao = new ContextoNavegacionDAO();
+            ContextoNavegacionM esq = new ContextoNavegacionM(id, Link, idU);
+            
+            dao.addContexto(esq);
+           
+            
             response.sendRedirect("ContextoNavegacion");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Esquemas.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

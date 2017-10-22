@@ -21,7 +21,7 @@
     <body background="fondo.jpg">
         
         <div class="container">
-            <h1 class="col-md-4"> Base de Datos</h1>
+            <h1 class="col-md-4"> Unidad Abstracta</h1>
         <div class="span12">&nbsp;</div>
         <div class="span12">&nbsp;</div>
         <div class="span12">&nbsp;</div>
@@ -29,17 +29,18 @@
         <div class="span12">&nbsp;</div>
         <div class="span12">&nbsp;</div>
        
-<div class="col-md-4">
-    <a class href="Esquemas">
-<button type="button" class="btn btn-primary btn-lg">ESQUEMA</button>
-        </a>
-<a  href="Tablas">
-<button type="button" class="btn btn-success btn-lg">TABLA</button>
-</a>
-<a  href="Columnas">
-<button   type="button" class="btn btn-danger btn-lg">COLUMNA</button>  
-</a>
-</div>
+<form action="unidadstracta" method="POST">
+            Id:
+            <input type="text" name="idU"/>
+            <br>
+            Id Tabla:
+            <input type="text" name="idT"/>
+            <br>
+            <input type="submit" class="btn btn-info" name="Enviar"/>
+            
+            <a class="btn btn-info" href="ModeloNavegacion.jsp" role="button">Inicio</a>
+            
+        </form>
         </div>
     </body>
 </html>

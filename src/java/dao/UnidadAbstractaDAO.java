@@ -9,25 +9,33 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import util.DbUtil;
+    import model.UnidadAbstracta;
 
 /**
  *
  * @author LabingXEON
  */
-public class ContextoNavegacion {
+public class UnidadAbstractaDAO {
     
-    public boolean addContexto(int id, String link) throws SQLException {
+    private static Connection connection;
+
+    public UnidadAbstractaDAO() throws SQLException {
+        connection = DbUtil.getConnection();
+    }
+    public boolean addUnidad(UnidadAbstracta unidadabstracta) throws SQLException {
         boolean result = false;
         Connection connection = DbUtil.getConnection();
-        String query = "insert into ";
+        String query = "insert into unidadabstractainformacion (unidadabstracta.Id_UnidadAbstracta,unidadabstracta.Id_tabla) values (?, ?)";
         PreparedStatement preparedStmt = null;
         try {
             preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setString(1, esquema.getNombre_esquema());
+            preparedStmt.setInt(1, unidadabstracta.getId_UnidadAbstracta());
+             preparedStmt.setInt(2, unidadabstracta.getId_tabla());
             result = preparedStmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;
     }
+   
 }

@@ -18,17 +18,22 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
  <body background="fondo.jpg">
-       <h1>Inserte el V</h1>
-        <form action="ContextoNavegacion" method="POST">
+       <h1>Insertar contexto de navegacion</h1>
+        <form action="contextocavegacion" method="POST">
             Id:
-            <input type="text" name="nombre"/>
+            <input type="text" name="idContexto"/>
             <br>
             Link:
-            <input type="text" name="nombre"/>
+            <input type="text" name="link"/>
+            <br>
+            Id Unidad Abstracta:
+            <input type="text" name="idUnidad"/>
             <br>
             <input type="submit" class="btn btn-info" name="Enviar"/>
             
             <a class="btn btn-info" href="ModeloNavegacion.jsp" role="button">Inicio</a>
+            
         </form>
+        
     </body>
 </html>
